@@ -1,5 +1,11 @@
 fetchAPI();
-
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
 function fetchAPI(){
     var location= '22 Main St Boston MA';
     axios.get('https://maps.googleapis.com/maps/api/geocode/json', 
