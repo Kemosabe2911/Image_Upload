@@ -62,9 +62,10 @@ app.post('/uploads', (req,res)=>{
                     msg: 'Error: No File Selected!'
                 });
             }else{
+                console.log(req.file.path);
                 res.render('index',{
                     msg: 'File Uploaded',
-                    img: `upload/${req.file.filename}`
+                    img: req.file.path
                 });
             }
         }
