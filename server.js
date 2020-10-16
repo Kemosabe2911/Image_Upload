@@ -7,7 +7,7 @@ const path= require('path');
 const storage= multer.diskStorage({
     destination: './public/uploads',
     filename: function(req,file,cb){
-        cb(null,file.filename + '-' + Date.now() + path.extname(file.originalname));
+        cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
@@ -30,6 +30,18 @@ const PORT= process.env.PORT || 3000;
 
 app.get('/', (req,res)=>{
     res.render("index");
+});
+
+app.post('/uploads', (req,res)=>{
+    upload(req,res,(err) =>{
+        if(err){
+            res.render('index',{msg:err});
+        }
+        else{
+            console.log(req.file);
+            res.send('Test');
+        }
+    });
 });
 
 
