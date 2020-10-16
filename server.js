@@ -57,8 +57,16 @@ app.post('/uploads', (req,res)=>{
             res.render('index',{msg:err});
         }
         else{
-            console.log(req.file);
-            res.send('Test');
+            if(req.file == undefined){
+                res.render('index',{
+                    msg: 'Error: No File Selected!'
+                });
+            }else{
+                res.render('index',{
+                    msg: 'File Uploaded',
+                    img: `upload/${req.file.filename}`
+                });
+            }
         }
     });
 });
