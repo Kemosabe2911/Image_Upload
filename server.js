@@ -5,8 +5,16 @@ const path= require('path');
 
 //Set Storage Engine
 const storage= multer.diskStorage({
-    destination: './public/uploads'
+    destination: './public/uploads',
+    filename: function(req,file,cb){
+        cb(null,file.filename + '-' + Date.now() + path.extname(file.originalname));
+    }
 });
+
+//Init Upload
+const upload= multer({
+    storage: storage
+}).single('pImage');
 
 
 //Init express
@@ -18,13 +26,13 @@ app.set('view engine','ejs');
 //Public Folder
 app.use(express.static('./public')); 
 
-const PORT= process.env.PORT || 5000;
+const PORT= process.env.PORT || 3000;
 
-app.get('/',(req,res)=>{
-    res.render('index');
-})
+app.get('/', (req,res)=>{
+    res.render("index");
+});
 
 
 app.listen(PORT, () =>{
     console.log(`Server Running on port ${PORT}`);
-})
+});
