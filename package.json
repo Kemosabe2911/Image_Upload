@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Kemosabe2911/Image_Upload/issues"
   },
-  "homepage": "https://github.com/Kemosabe2911/Image_Upload#readme"
+  "homepage": "https://github.com/Kemosabe2911/Image_Upload#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  }
 }
