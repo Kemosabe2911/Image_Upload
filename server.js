@@ -2,6 +2,16 @@ const express= require('express');
 const multer= require('multer');
 const ejs= require('ejs');
 const path= require('path');
+const { Pool, Client } = require('pg');
+
+//Configure db
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'image_up',
+    password: 'Stevin@123',
+    port: 5432,
+  });
 
 //Set Storage Engine
 const storage= multer.diskStorage({
@@ -48,7 +58,19 @@ app.use(express.static('./public'));
 const PORT= process.env.PORT || 3000;
 
 app.get('/', (req,res)=>{
-    res.render("index");
+    pool.query(
+        `SELECT * FROM images
+        WHERE id=1`,(err,results)=>{
+            if(err){
+                throw err;
+            }
+            console.log(results.rows[0].img);
+            res.render("index",{
+                img: `/uploads/${results.rows[0].img}`
+            });
+        }
+    );
+
 });
 
 app.post('/uploads', (req,res)=>{
@@ -67,10 +89,23 @@ app.post('/uploads', (req,res)=>{
                     msg: 'File Uploaded',
                     img: `/uploads/${req.file.filename}`
                 });
+                //Insert into db
+                pool.query(
+                    `INSERT INTO images (img)
+                    VALUES ($1)
+                    RETURNING id`,[req.file.filename],(err,results) =>{
+                        if(err){
+                            throw err;
+                        }
+                        console.log(results.row);
+                        console.log("success");
+                    }
+                )
             }
         }
     });
 });
+
 
 
 app.listen(PORT, () =>{
