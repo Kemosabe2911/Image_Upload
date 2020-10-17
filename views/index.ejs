@@ -25,8 +25,12 @@
           </form>
           <br>
           <!--<img src="/uploads/pImage-1602856106908.png" alt="Image Not availabale" class="responsive-image">-->
-
-          <img src="<%= typeof img !='undefined'? img : 'Not displaying' %>" alt="Image Not availabale" class="responsive-image">
+          <ul>
+          <% imgs.forEach(function(img){ %>
+            <li><img src="<%= typeof img.img !='undefined'? `/uploads/${img.img}` : 'Not displaying' %>" alt="Image Not availabale" class="responsive-image"></li>
+          <%}); %>
+          </ul>
+          <!--<img src="<%= typeof img !='undefined'? img : 'Not displaying' %>" alt="Image Not availabale" class="responsive-image">-->
     </div>
 
 

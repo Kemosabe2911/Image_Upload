@@ -59,14 +59,14 @@ const PORT= process.env.PORT || 3000;
 
 app.get('/', (req,res)=>{
     pool.query(
-        `SELECT * FROM images
-        WHERE id=1`,(err,results)=>{
+        `SELECT * FROM images`,(err,results)=>{
             if(err){
                 throw err;
             }
             console.log(results.rows[0].img);
             res.render("index",{
-                img: `/uploads/${results.rows[0].img}`
+                imgs: results.rows
+                //img: `/uploads/${results.rows[0].img}`
             });
         }
     );
