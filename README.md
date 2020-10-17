@@ -2,8 +2,8 @@
 
 # Uploading images using multer
 
-Dependencies Used
-#
+Dependencies Used:
+
 -> Express
 -> Multrer
 -> Ejs
